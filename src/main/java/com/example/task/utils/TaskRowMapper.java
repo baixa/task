@@ -22,7 +22,7 @@ public class TaskRowMapper implements RowMapper<Task> {
         worker.setId(rs.getLong("WORKER_ID"));
         worker.setName(rs.getString("WORKER_NAME"));
         worker.setPosition(rs.getString("WORKER_POSITION"));
-        worker.setAvatar(rs.getString("WORKER_AVATAR"));
+        worker.setAvatar(rs.getBytes("WORKER_AVATAR"));
 
         task.setPerformer(worker);
 

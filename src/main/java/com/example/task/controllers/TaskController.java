@@ -40,18 +40,16 @@ public class TaskController {
         createdTask.setPerformer(worker.get());
         Task task = new Task(createdTask);
         taskService.saveTask(task);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Task created");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Task add to queue");
     }
 
-    @GetMapping
-    @RequestMapping("/all")
+    @GetMapping("/all")
     public List<ShortResponseTask> getAllTasks() {
         List<Task> tasks = taskService.getAllTasks();
         return tasks.stream().map(ShortResponseTask::new).toList();
     }
 
-    @GetMapping
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getTaskById(@PathVariable String id) {
         Long idValue = NumParser.parseStringAsLong(id);
         if (idValue == null)

@@ -2,6 +2,7 @@ package com.example.task.services;
 
 import com.example.task.model.Task;
 import com.example.task.utils.TaskRowMapper;
+import com.example.task.utils.TaskShortRowMapper;
 import com.example.task.utils.TaskThread;
 import com.example.task.utils.ThreadPoolUtil;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -49,6 +50,14 @@ public class TaskService {
         }
     }
 
+    public List<Task> getTaskByPerformerId(Long performerId) {
+        return jdbcTemplate.query(
+                "SELECT ID, t.TITLE, t.DESCRIPTION, t.STATUS, t.TIME " +
+                        "FROM Task as t WHERE t.performer = ?",
+                new Object[]{performerId},
+                new TaskShortRowMapper());
+    }
+
     public void saveTask(Task task) {
         threadPoolUtil.executeTask(new TaskThread(task, jdbcTemplate));
     }
@@ -67,5 +76,9 @@ public class TaskService {
         jdbcTemplate.update("UPDATE task SET performer = ? WHERE id = ?",
                 editedTask.getPerformer().getId(),
                 editedTask.getId());
+    }
+
+    public void removeTasksByPerformerId(Long id) {
+        jdbcTemplate.update("DELETE FROM task WHERE performer = ?", id);
     }
 }

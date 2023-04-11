@@ -11,10 +11,10 @@ public class WorkerRowMapper implements RowMapper<Worker> {
     public Worker mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         Worker worker = new Worker();
-        worker.setId(rs.getLong("WORKER_ID"));
-        worker.setName(rs.getString("WORKER_NAME"));
-        worker.setPosition(rs.getString("WORKER_POSITION"));
-        worker.setAvatar(rs.getString("WORKER_AVATAR"));
+        worker.setId(rs.getLong("ID"));
+        worker.setName(rs.getString("NAME"));
+        worker.setPosition(rs.getString("POSITION"));
+        worker.setAvatar(rs.getBytes("AVATAR"));
 
         return worker;
     }

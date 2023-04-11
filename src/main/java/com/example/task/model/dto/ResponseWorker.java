@@ -1,15 +1,22 @@
-package com.example.task.model;
+package com.example.task.model.dto;
+
+import com.example.task.model.Worker;
 
 import java.util.List;
 
-public class Worker {
+public class ResponseWorker {
     private Long id;
     private String name;
     private String position;
     private byte[] avatar;
-    private List<Task> tasks;
+    private List<ShortResponseTask> taskList;
 
-    public Worker() {
+    public ResponseWorker (Worker worker) {
+        this.id = worker.getId();
+        this.name = worker.getName();
+        this.position = worker.getPosition();
+        this.avatar = worker.getAvatar();
+        this.taskList = worker.getTasks().stream().map(ShortResponseTask::new).toList();
     }
 
     public Long getId() {
@@ -44,11 +51,11 @@ public class Worker {
         this.avatar = avatar;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<ShortResponseTask> getTaskList() {
+        return taskList;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setTaskList(List<ShortResponseTask> taskList) {
+        this.taskList = taskList;
     }
 }
